@@ -164,7 +164,7 @@ const captureButtonText = computed(() => {
 const startCamera = async () => {
     try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: 'user', width: 640, height: 480 }
+            video: { facingMode: 'user', width: 640, height: 480 }, audio: false
         })
         stream.value = mediaStream
 
