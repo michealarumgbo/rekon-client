@@ -53,6 +53,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated =
     localStorage.getItem('access_token') && localStorage.getItem('refresh_token')
+  const faceRegistered = localStorage.getItem('faceRegistered')
   const emailVerified = localStorage.getItem('email_verified')
   const guestPages = ['/login', '/', '/verify-email']
 
@@ -60,6 +61,8 @@ router.beforeEach((to, from, next) => {
     next('/login') // redirect to login
   } else if (isAuthenticated && !emailVerified && to.path !== '/verify-email') {
     return next('/verify-email')
+  } else if (isAuthenticated && !faceRegistered && to.path !== '/face-reg') {
+    return next('/face-reg')
   } else if (isAuthenticated && emailVerified && guestPages.includes(to.path)) {
     return next('/user/manage-account/')
   } else {

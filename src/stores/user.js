@@ -50,9 +50,12 @@ export const useUserStore = defineStore('user', () => {
       accessToken.value = data.access_token
       refreshToken.value = data.refresh_token
 
+      // store tokens
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('refresh_token', data.refresh_token)
 
+      // store face registeration status
+      localStorage.setItem('faceRegistered', false)
       // return data
       return data
     } catch (error) {
@@ -81,8 +84,17 @@ export const useUserStore = defineStore('user', () => {
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('refresh_token', data.refresh_token)
 
-      if (data.user && data.user.email_verified_at) {
-        localStorage.setItem('email_verified', 'true')
+      if (data.user) {
+        if (data.user.email_verified_at) {
+          localStorage.setItem('email_verified', 'true')
+        }
+        if (data.user.faceExists) {
+          // store face registeration status
+          localStorage.setItem('faceRegistered', true)
+        } else {
+          // store face registeration status
+          localStorage.setItem('faceRegistered', false)
+        }
       }
 
       // return data
@@ -171,6 +183,19 @@ export const useUserStore = defineStore('user', () => {
         },
       })
 
+      if (data.user) {
+        if (data.user.email_verified_at) {
+          localStorage.setItem('email_verified', 'true')
+        }
+        if (data.user.faceExists) {
+          // store face registeration status
+          localStorage.setItem('faceRegistered', true)
+        } else {
+          // store face registeration status
+          localStorage.setItem('faceRegistered', false)
+        }
+      }
+
       return data
     } catch (error) {
       if (error?.response) {
@@ -243,6 +268,7 @@ export const useUserStore = defineStore('user', () => {
         },
       )
 
+      localStorage.setItem('faceRegistered', 'true')
       return data
     } catch (error) {
       if (error?.response) {

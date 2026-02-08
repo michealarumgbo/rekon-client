@@ -29,8 +29,8 @@ const handleSubmit = async () => {
         return errors.value.push(data.error)
     } else {
         router.push('/verify-email')
+        console.log(data)
     }
-    console.log(data)
 
     // console.log({ ...form })
 }
