@@ -4,7 +4,8 @@ import { useUserStore } from '@/stores/user';
 import { reactive, ref } from 'vue';
 
 
-const { updatePasswordFunc } = useUserStore()
+const { updatePasswordFunc, getMe } = useUserStore()
+const me = getMe()
 const user = {
     firstname: "Micheal",
     lastname: "Chinedu"

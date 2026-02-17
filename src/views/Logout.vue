@@ -19,6 +19,7 @@ onMounted(async () => {
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
         localStorage.removeItem('email_verified')
+        localStorage.removeItem('faceRegistered')
         router.push('/login')
     } else {
         console.log(loggedOut)

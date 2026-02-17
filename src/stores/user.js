@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', () => {
 
   //   refresh access token
   const tokenRefresher = async (token = refreshToken.value) => {
+    console.log('refreshing')
     try {
       const { data } = await api.post(
         '/auth/new-token',
@@ -54,8 +55,6 @@ export const useUserStore = defineStore('user', () => {
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('refresh_token', data.refresh_token)
 
-      // store face registeration status
-      localStorage.setItem('faceRegistered', false)
       // return data
       return data
     } catch (error) {
@@ -91,9 +90,6 @@ export const useUserStore = defineStore('user', () => {
         if (data.user.faceExists) {
           // store face registeration status
           localStorage.setItem('faceRegistered', true)
-        } else {
-          // store face registeration status
-          localStorage.setItem('faceRegistered', false)
         }
       }
 
@@ -190,9 +186,6 @@ export const useUserStore = defineStore('user', () => {
         if (data.user.faceExists) {
           // store face registeration status
           localStorage.setItem('faceRegistered', true)
-        } else {
-          // store face registeration status
-          localStorage.setItem('faceRegistered', false)
         }
       }
 
@@ -308,7 +301,6 @@ export const useUserStore = defineStore('user', () => {
         const { data } = error.response
         // console.log(data)
         if (res?.status == 401) {
-          // console.log('refresh')
           const newToken = await tokenRefresher()
           return logout(newToken)
         }
